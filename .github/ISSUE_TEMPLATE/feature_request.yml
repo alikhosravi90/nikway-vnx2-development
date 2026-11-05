@@ -1,0 +1,27 @@
+name: Feature request / پیشنهاد قابلیت
+description: Propose a public contribution or feature.
+title: "[Feature]: "
+body:
+  - type: textarea
+    id: need
+    attributes:
+      label: User need / نیاز کاربر
+    validations:
+      required: true
+  - type: textarea
+    id: options
+    attributes:
+      label: Open-source alternatives / گزینه‌های متن‌باز
+      description: Include upstream URLs and license evidence.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria / معیار پذیرش
+    validations:
+      required: true
+  - type: textarea
+    id: risks
+    attributes:
+      label: Security, privacy and compatibility / ریسک‌ها
