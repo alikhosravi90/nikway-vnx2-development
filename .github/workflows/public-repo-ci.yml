@@ -1,0 +1,40 @@
+name: Public Repository CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  repository-baseline:
+    name: Documentation and governance checks
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Verify governance and public documentation
+        shell: bash
+        run: |
+          set -euo pipefail
+          for file in LICENSE SECURITY.md CODE_OF_CONDUCT.md CONTRIBUTING.md CONTRIBUTING.fa.md README.md README.fa.md .github/CODEOWNERS .github/PULL_REQUEST_TEMPLATE.md .github/ISSUE_TEMPLATE/bug_report.yml .github/ISSUE_TEMPLATE/feature_request.yml .github/ISSUE_TEMPLATE/research.yml docs/ARCHITECTURE.md docs/ARCHITECTURE.fa.md docs/STARTER-BACKLOG.md docs/STARTER-BACKLOG.fa.md; do
+            test -s "$file" || { echo "Missing or empty: $file"; exit 1; }
+          done
+          grep -q 'Apache License' LICENSE
+          grep -q 'Version 2.0' LICENSE
+          echo "Governance baseline PASS"
+      - name: Check for unresolved merge markers
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git grep -n -E '^(<<<<<<< |=======|>>>>>>> )' -- ':!LICENSE'; then
+            echo "Unresolved merge markers detected"
+            exit 1
+          fi
+          echo "Merge-marker check PASS"
