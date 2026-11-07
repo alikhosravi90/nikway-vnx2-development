@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security reporting / گزارش امنیتی
+    url: https://github.com/alikhosravi90/nikway-vnx2-development/security
+    about: Use private vulnerability reporting when enabled; never disclose security details in public issues.

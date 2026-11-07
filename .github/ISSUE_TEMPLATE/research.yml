@@ -1,0 +1,28 @@
+name: OSS research / پژوهش متن‌باز
+description: Propose or compare existing repositories before building.
+title: "[Research]: "
+body:
+  - type: input
+    id: question
+    attributes:
+      label: Research question / پرسش پژوهش
+    validations:
+      required: true
+  - type: textarea
+    id: candidates
+    attributes:
+      label: Candidate repositories / مخازن نامزد
+      description: Include links, versions, licenses and maintenance evidence.
+    validations:
+      required: true
+  - type: textarea
+    id: comparison
+    attributes:
+      label: Criteria and findings / معیارها و یافته‌ها
+      description: Security, license, API, offline support, maintenance, cost.
+    validations:
+      required: true
+  - type: textarea
+    id: decision
+    attributes:
+      label: Proposed decision / تصمیم پیشنهادی
