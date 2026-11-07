@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "NIKWAY Study Session v0.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "session_id",
+    "lesson_id",
+    "lesson_version",
+    "step_index",
+    "status",
+    "answers"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.1.0"
+    },
+    "session_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "lesson_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "lesson_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "step_index": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "status": {
+      "enum": [
+        "in_progress",
+        "completed"
+      ]
+    },
+    "answers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "step_id",
+          "selected_index",
+          "correct"
+        ],
+        "properties": {
+          "step_id": {
+            "type": "string"
+          },
+          "selected_index": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "correct": {
+            "type": "boolean"
+          }
+        }
+      }
+    }
+  }
+}
