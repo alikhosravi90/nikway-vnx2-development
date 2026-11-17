@@ -55,7 +55,7 @@ class Session:
                 "lesson_id": LESSON["id"], "lesson_version": LESSON["version"],
                 "step_index": self.step_index,
                 "status": "completed" if self.completed else "in_progress",
-                "answers": list(self.answers)}
+                "answers": [dict(answer) for answer in self.answers]}
 
     def score(self):
         if not self.completed:
