@@ -46,5 +46,26 @@ class StudyEngineTests(unittest.TestCase):
         self.assertEqual(len(session.snapshot()["answers"]), 1)
 
 
+    def test_snapshot_mutation_cannot_change_session_or_score(self):
+        session = Session("synthetic-snapshot")
+        for _ in LESSON["steps"]:
+            session.submit(0)
+        before = session.score()
+        self.assertEqual(before["correct"], 1)
+        snapshot = session.snapshot()
+        for answer in snapshot["answers"]:
+            answer["correct"] = True
+            answer["selected_index"] = 99
+            answer["step_id"] = "tampered"
+        snapshot["answers"].clear()
+        snapshot["step_index"] = -1
+        self.assertEqual(session.score(), before)
+        self.assertEqual(len(session.answers), 3)
+        self.assertEqual(session.step_index, 3)
+        self.assertEqual(session.answers[0]["step_id"], "define")
+        self.assertEqual(session.answers[0]["selected_index"], 0)
+        self.assertFalse(session.answers[0]["correct"])
+
+
 if __name__ == "__main__":
     unittest.main()
